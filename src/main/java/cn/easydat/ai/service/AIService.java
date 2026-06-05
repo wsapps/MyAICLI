@@ -20,8 +20,7 @@ import tools.jackson.databind.ObjectMapper;
 
 public class AIService {
 
-	private static final String API_URL = "https://ark.cn-beijing.volces.com/api/coding/v3/chat/completions";
-	private static final String API_KEY = "ef5986b3-0aa6-4395-b745-abba09a649eb";
+	private static final String CHAT_URL = "/chat/completions";
 	private static final String DONE_SIGNAL = "[DONE]";
 	private static final String DEFAULT_MODEL = "DeepSeek-V4-Flash";
 	private static final String SEPARATOR = "--------------------";
@@ -34,7 +33,7 @@ public class AIService {
 		ChatResponse chatResponse = null;
 
 		OkHttpClient client = new OkHttpClient();
-		Request request = new Request.Builder().url(API_URL).addHeader("Authorization", "Bearer " + API_KEY)
+		Request request = new Request.Builder().url(Config.BASE_URL + CHAT_URL).addHeader("Authorization", "Bearer " + Config.API_KEY)
 				.addHeader("Accept", "text/event-stream").addHeader("Content-Type", "application/json")
 				.post(RequestBody.create(prompt, MediaType.parse("application/json"))).build();
 
@@ -131,6 +130,7 @@ public class AIService {
 		ChatResponse chatResponse = ai.chat(messages);
 
 		System.out.println("chatResponse:" + chatResponse);
+		
 	}
 
 }
